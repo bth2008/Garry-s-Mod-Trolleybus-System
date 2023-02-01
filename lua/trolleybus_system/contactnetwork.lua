@@ -2647,8 +2647,8 @@ Trolleybus_System.ContactNetwork.Types = {
 
 						if light then
 							local pos,ang = LocalToWorld(self.ldata[2],self.ldata[3],data.Pos,data.Ang)
-                            local colorindex = 4
-                            if data.AlwaysOn then colorindex = 9 end
+                                                        local colorindex = 4
+                                                        if data.AlwaysOn then colorindex = 9 end
 							light.pos = pos
 							light.dir = ang:Forward()
 							light.dietime = CurTime()+1
