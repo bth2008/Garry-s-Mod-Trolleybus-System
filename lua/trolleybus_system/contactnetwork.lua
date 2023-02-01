@@ -2594,10 +2594,18 @@ Trolleybus_System.ContactNetwork.Types = {
 					ConnectingFilter = {["pillar"] = {12}},
 				},
 			},
-			Properties = {},
+			Properties = {
+			    ["always_on"] = {
+                    Name = L"contactnetwork.types.suspensionandother.pillar_lamp.properties.always_on",
+                    Default = false,
+                    Type = "CheckBox",
+                    Update = function(self,data,value) data.AlwaysOn = value end,
+                },
+			},
 			Initialize = function(self,data,pos,ang)
 				data.Pos = pos
 				data.Ang = ang
+				data.AlwaysOn = false
 
 				if SERVER and !Trolleybus_System.ContactNetwork._PillarLampLightingHook then
 					Trolleybus_System.ContactNetwork._PillarLampLightingHook = true
@@ -2634,7 +2642,7 @@ Trolleybus_System.ContactNetwork.Types = {
 				hook.Add("Think",ent,function(ent)
 					local id = data.NW and data.NW.GetVar("dlightID")
 
-					if id and Trolleybus_System.NetworkSystem.GetHelperVar("ContactNetwork.PillarLampLighting","Active") then
+					if id and (data.AlwaysOn or Trolleybus_System.NetworkSystem.GetHelperVar("ContactNetwork.PillarLampLighting","Active")) then
 						local light = DynamicLight(id)
 
 						if light then
@@ -2655,7 +2663,7 @@ Trolleybus_System.ContactNetwork.Types = {
 				end)
 				hook.Add("PostDrawTranslucentRenderables",ent,function(ent,depth,skybox,sky3d)
 					if sky3d and skybox then return end
-					if !Trolleybus_System.NetworkSystem.GetHelperVar("ContactNetwork.PillarLampLighting","Active") then return end
+					if !Trolleybus_System.NetworkSystem.GetHelperVar("ContactNetwork.PillarLampLighting","Active") and !data.AlwaysOn then return end
 
 					local p,a = LocalToWorld(self.ldata[2],self.ldata[3],data.Pos,data.Ang)
 					local fr = ent.pixvis:PixelVisible(p,1)
