@@ -2595,12 +2595,12 @@ Trolleybus_System.ContactNetwork.Types = {
 				},
 			},
 			Properties = {
-			    ["always_on"] = {
-                    Name = L"contactnetwork.types.suspensionandother.pillar_lamp.properties.always_on",
-                    Default = false,
-                    Type = "CheckBox",
-                    Update = function(self,data,value) data.AlwaysOn = value end,
-                },
+                                ["always_on"] = {
+                                        Name = L"contactnetwork.types.suspensionandother.pillar_lamp.properties.always_on",
+                                        Default = false,
+                                        Type = "CheckBox",
+                                        Update = function(self,data,value) data.AlwaysOn = value end,
+                                },
 			},
 			Initialize = function(self,data,pos,ang)
 				data.Pos = pos
