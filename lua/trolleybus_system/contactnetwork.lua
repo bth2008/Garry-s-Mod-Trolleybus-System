@@ -2583,7 +2583,7 @@ Trolleybus_System.ContactNetwork.Types = {
 		},
 		["pillar_lamp"] = {
 			Name = L"contactnetwork.types.suspensionandother.pillar_lamp",
-			ldata = {Vector(0,0,30),Vector(0,-105,84),Angle(90,-90,0),Color(255,225,125),1500,3,40,100},
+			ldata = {Vector(0,0,30),Vector(0,-105,84),Angle(90,-90,0),Color(255,225,125),1500,3,40,100,Color(224,176,255)},
 			lmat = Material("sprites/light_ignorez"),
 			ConnectablePositions = {
 				{
@@ -2647,14 +2647,15 @@ Trolleybus_System.ContactNetwork.Types = {
 
 						if light then
 							local pos,ang = LocalToWorld(self.ldata[2],self.ldata[3],data.Pos,data.Ang)
-
+                            local colorindex = 4
+                            if data.AlwaysOn then colorindex = 9 end
 							light.pos = pos
 							light.dir = ang:Forward()
 							light.dietime = CurTime()+1
 							light.decay = 1000
-							light.r = self.ldata[4].r
-							light.g = self.ldata[4].g
-							light.b = self.ldata[4].b
+							light.r = self.ldata[colorindex].r
+							light.g = self.ldata[colorindex].g
+							light.b = self.ldata[colorindex].b
 							light.size = self.ldata[5]
 							light.brightness = self.ldata[6]
 							light.outerangle = self.ldata[7]
